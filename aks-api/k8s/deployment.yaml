@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contoso-agent-api
+  namespace: default
+  labels:
+    app: contoso-agent-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: contoso-agent-api
+  template:
+    metadata:
+      labels:
+        app: contoso-agent-api
+    spec:
+      containers:
+        - name: contoso-agent-api
+          image: <your-acr-name>.azurecr.io/contoso-agent-api:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          # Non-sensitive configuration from ConfigMap
+          envFrom:
+            - configMapRef:
+                name: contoso-agent-api-config
+          # Sensitive values from Secret
+          env:
+            - name: AZURE_AI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: contoso-agent-api-secrets
+                  key: AZURE_AI_API_KEY
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"

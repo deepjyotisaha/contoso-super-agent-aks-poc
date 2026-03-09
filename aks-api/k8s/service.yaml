@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: contoso-agent-api-svc
+  namespace: default
+spec:
+  selector:
+    app: contoso-agent-api
+  # LoadBalancer exposes a public IP directly — suitable for POC.
+  # For production, switch to ClusterIP + Ingress + TLS.
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000

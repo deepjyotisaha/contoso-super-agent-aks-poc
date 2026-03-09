@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: contoso-agent-api-config
+  namespace: default
+data:
+  # Azure AI Foundry endpoint URL.
+  # Found in: ai.azure.com → your project → Models + endpoints → your model → Target URI
+  AZURE_AI_ENDPOINT_URL: "https://<your-resource-name>.cognitiveservices.azure.com/"
+
+  # Model deployment name as shown in your Azure AI Foundry project.
+  AZURE_AI_MODEL: "gpt-4o"
+
+  # Azure OpenAI API version.
+  AZURE_AI_API_VERSION: "2024-05-01-preview"
+
+  # System prompt sent to the model before each user message.
+  AZURE_AI_SYSTEM_PROMPT: "You are a helpful assistant. Answer the user's question clearly and concisely."
