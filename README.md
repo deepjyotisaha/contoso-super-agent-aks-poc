@@ -1,4 +1,4 @@
-# Contoso Super Agent — AKS POC
+# Contoso Super Agent — Azure Kubernetes Service (AKS) POC
 
 A Proof of Concept demonstrating how a **Microsoft M365 Custom Engine Agent** (CEA) communicates with an enterprise orchestrator agent hosted on **Azure Kubernetes Service (AKS)**.
 
